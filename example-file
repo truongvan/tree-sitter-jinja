@@ -1,2 +1,6 @@
 {{ crate::MAX_NB_USERS }}
 {% let value = 4 %}
+{% if let Some(user) = user %}
+{{ user.name }}
+{% else %}
+{% endif %}

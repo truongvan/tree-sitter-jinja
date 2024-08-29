@@ -12,19 +12,22 @@ module.exports = grammar({
     rules: {
         // TODO: add the actual grammar rules
         source_file: $ => repeat(choice(
-            $.variable, $.assignment
+            $.variable, $.assignment, $.comment,
         )),
         variable: $ => seq("{{", repeat($._statement), "}}"),
         assignment: $ => seq("{%", optional($.code), "%}"),
+        comment: $ => seq("{#", optional($.value), "#}"),
         keyword: _ => choice(
-            "in", "set", "let", "filter", "if", "block", "for", "match", "include", "macro"
+            "in", "set", "let", "if let", "filter", "if", "else", "endif", "block", "for", "match", "include", "macro"
         ),
         code: $ => seq(
             $.keyword,
-            $._expression,
             optional(seq(
-                $._operator,
-                choice($.identifier, $.number)
+                $._expression,
+                optional(seq(
+                    $.operator,
+                    $.value
+                ))
             ))
         ),
         _code: $ => /[^{}%]+/,
@@ -32,15 +35,15 @@ module.exports = grammar({
         _statement: $ => choice(
             $._expression
         ),
-        _operator: _ => choice("=", "in", "with"),
+        operator: _ => choice("=", "in", "with"),
         _expression: $ => seq(
             $.identifier,
             optional(repeat(seq(
-                '::',
+                choice("::", "."),
                 $.identifier
             )))),
-        identifier: $ => /[^\d][a-zA-Z0-9\_]+/,
-        number: $ => /\d+/
+        identifier: $ => /[^\d][a-zA-Z0-9\_\(\)]+/,
+        value: _ => /[^<>"'=\s]+/,
 
     }
 });
