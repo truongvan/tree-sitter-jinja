@@ -4,3 +4,4 @@
 {{ user.name }}
 {% else %}
 {% endif %}
+{% extends "base.html" %}

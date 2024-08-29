@@ -18,17 +18,21 @@ module.exports = grammar({
         assignment: $ => seq("{%", optional($.code), "%}"),
         comment: $ => seq("{#", optional($.value), "#}"),
         keyword: _ => choice(
-            "in", "set", "let", "if let", "filter", "if", "else", "endif", "block", "for", "match", "include", "macro"
+            "extends", "in", "set", "let", "if let", "filter", "if", "else", "endif", "block", "for", "match", "include", "macro"
         ),
         code: $ => seq(
             $.keyword,
-            optional(seq(
-                $._expression,
-                optional(seq(
-                    $.operator,
-                    $.value
-                ))
-            ))
+            optional(
+                choice(
+                    seq(
+                        $._expression,
+                        optional(seq(
+                            $.operator,
+                            $.value
+                        ))
+                    ), $.value
+                )
+            )
         ),
         _code: $ => /[^{}%]+/,
 
@@ -43,7 +47,7 @@ module.exports = grammar({
                 $.identifier
             )))),
         identifier: $ => /[^\d][a-zA-Z0-9\_\(\)]+/,
-        value: _ => /[^<>"'=\s]+/,
+        value: _ => /[^<>={}\s]+/,
 
     }
 });

@@ -96,6 +96,10 @@
       "members": [
         {
           "type": "STRING",
+          "value": "extends"
+        },
+        {
+          "type": "STRING",
           "value": "in"
         },
         {
@@ -159,32 +163,41 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SEQ",
+              "type": "CHOICE",
               "members": [
                 {
-                  "type": "SYMBOL",
-                  "name": "_expression"
-                },
-                {
-                  "type": "CHOICE",
+                  "type": "SEQ",
                   "members": [
                     {
-                      "type": "SEQ",
-                      "members": [
-                        {
-                          "type": "SYMBOL",
-                          "name": "operator"
-                        },
-                        {
-                          "type": "SYMBOL",
-                          "name": "value"
-                        }
-                      ]
+                      "type": "SYMBOL",
+                      "name": "_expression"
                     },
                     {
-                      "type": "BLANK"
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SEQ",
+                          "members": [
+                            {
+                              "type": "SYMBOL",
+                              "name": "operator"
+                            },
+                            {
+                              "type": "SYMBOL",
+                              "name": "value"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "BLANK"
+                        }
+                      ]
                     }
                   ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "value"
                 }
               ]
             },
@@ -273,7 +286,7 @@
     },
     "value": {
       "type": "PATTERN",
-      "value": "[^<>\"'=\\s]+"
+      "value": "[^<>={}\\s]+"
     }
   },
   "extras": [

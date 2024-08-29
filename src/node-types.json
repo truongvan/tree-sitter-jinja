@@ -137,6 +137,10 @@
     "named": false
   },
   {
+    "type": "extends",
+    "named": false
+  },
+  {
     "type": "filter",
     "named": false
   },
