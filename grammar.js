@@ -1,52 +1,46 @@
 /**
- * @file Embedded Template grammar for tree-sitter
- * @author Max Brunsfeld <maxbrunsfeld@gmail.com>
- * @license MIT
+ * @file Jinja Template grammar for tree-sitter
+ * @author Truong Van <truongvan@live.com>
  */
 
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
 module.exports = grammar({
-  name: 'embedded_template',
+    name: 'jinja_template',
 
-  extras: _ => [],
+    rules: {
+        // TODO: add the actual grammar rules
+        source_file: $ => repeat(choice(
+            $.variable, $.assignment
+        )),
+        variable: $ => seq("{{", repeat($._statement), "}}"),
+        assignment: $ => seq("{%", optional($.code), "%}"),
+        keyword: _ => choice(
+            "in", "set", "let", "filter", "if", "block", "for", "match", "include", "macro"
+        ),
+        code: $ => seq(
+            $.keyword,
+            $._expression,
+            optional(seq(
+                $._operator,
+                choice($.identifier, $.number)
+            ))
+        ),
+        _code: $ => /[^{}%]+/,
 
-  rules: {
-    template: $ => repeat(choice(
-      $.directive,
-      $.output_directive,
-      $.comment_directive,
-      $.graphql_directive,
-      $.content,
-    )),
+        _statement: $ => choice(
+            $._expression
+        ),
+        _operator: _ => choice("=", "in", "with"),
+        _expression: $ => seq(
+            $.identifier,
+            optional(repeat(seq(
+                '::',
+                $.identifier
+            )))),
+        identifier: $ => /[^\d][a-zA-Z0-9\_]+/,
+        number: $ => /\d+/
 
-    code: _ => repeat1(choice(/[^%=_-]+|[%=_-]/, '%%>')),
-
-    content: _ => prec.right(repeat1(choice(/[^<]+|</, '<%%'))),
-
-    directive: $ => seq(
-      choice('<%', '<%_', '<%|'),
-      optional($.code),
-      choice('%>', '-%>', '_%>'),
-    ),
-
-    output_directive: $ => seq(
-      choice('<%=', '<%==', '<%|=', '<%|==', '<%-'),
-      optional($.code),
-      choice('%>', '-%>', '=%>'),
-    ),
-
-    comment_directive: $ => seq(
-      '<%#',
-      optional(alias($.code, $.comment)),
-      '%>',
-    ),
-
-    graphql_directive: $ => seq(
-      '<%graphql',
-      optional($.code),
-      '%>',
-    ),
-  },
+    }
 });

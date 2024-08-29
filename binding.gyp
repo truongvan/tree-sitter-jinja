@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "target_name": "tree_sitter_embedded_template_binding",
+      "target_name": "tree_sitter_YOUR_LANGUAGE_NAME_binding",
       "dependencies": [
         "<!(node -p \"require('node-addon-api').targets\"):node_addon_api_except",
       ],
@@ -11,9 +11,19 @@
       "sources": [
         "bindings/node/binding.cc",
         "src/parser.c",
+        # NOTE: if your language has an external scanner, add it here.
       ],
-      "cflags_c": [
-        "-std=c11",
+      "conditions": [
+        ["OS!='win'", {
+          "cflags_c": [
+            "-std=c11",
+          ],
+        }, { # OS == "win"
+          "cflags_c": [
+            "/std:c11",
+            "/utf-8",
+          ],
+        }],
       ],
     }
   ]

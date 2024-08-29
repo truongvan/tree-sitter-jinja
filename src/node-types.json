@@ -1,81 +1,49 @@
 [
   {
+    "type": "assignment",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "code",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "code",
     "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "keyword",
+    "named": true,
     "fields": {}
   },
   {
-    "type": "comment",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "comment_directive",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "comment",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "content",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "code",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "graphql_directive",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "code",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "output_directive",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "code",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "template",
+    "type": "source_file",
     "named": true,
     "fields": {},
     "children": {
@@ -83,90 +51,105 @@
       "required": false,
       "types": [
         {
-          "type": "comment_directive",
+          "type": "assignment",
           "named": true
         },
         {
-          "type": "content",
-          "named": true
-        },
-        {
-          "type": "directive",
-          "named": true
-        },
-        {
-          "type": "graphql_directive",
-          "named": true
-        },
-        {
-          "type": "output_directive",
+          "type": "variable",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "%%>",
+    "type": "variable",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "%}",
     "named": false
   },
   {
-    "type": "%>",
+    "type": "::",
     "named": false
   },
   {
-    "type": "-%>",
+    "type": "=",
     "named": false
   },
   {
-    "type": "<%",
+    "type": "block",
     "named": false
   },
   {
-    "type": "<%#",
+    "type": "filter",
     "named": false
   },
   {
-    "type": "<%%",
+    "type": "for",
     "named": false
   },
   {
-    "type": "<%-",
+    "type": "identifier",
+    "named": true
+  },
+  {
+    "type": "if",
     "named": false
   },
   {
-    "type": "<%=",
+    "type": "in",
     "named": false
   },
   {
-    "type": "<%==",
+    "type": "include",
     "named": false
   },
   {
-    "type": "<%_",
+    "type": "let",
     "named": false
   },
   {
-    "type": "<%graphql",
+    "type": "macro",
     "named": false
   },
   {
-    "type": "<%|",
+    "type": "match",
     "named": false
   },
   {
-    "type": "<%|=",
+    "type": "number",
+    "named": true
+  },
+  {
+    "type": "set",
     "named": false
   },
   {
-    "type": "<%|==",
+    "type": "with",
     "named": false
   },
   {
-    "type": "=%>",
+    "type": "{%",
     "named": false
   },
   {
-    "type": "_%>",
+    "type": "{{",
+    "named": false
+  },
+  {
+    "type": "}}",
     "named": false
   }
 ]
